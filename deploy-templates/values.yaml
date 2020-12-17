@@ -1,0 +1,17 @@
+name: terraform-aws-bastion
+namespace: ""
+cdPipelineName: ""
+cdPipelineStageName: ""
+dnsWildcard: eks-core.aws.main.edp.projects.epam.com
+framework: other
+
+database:
+  required: false
+
+
+ingress:
+  required: false
+
+image:
+  name: terraform-aws-bastion
+  version: latest

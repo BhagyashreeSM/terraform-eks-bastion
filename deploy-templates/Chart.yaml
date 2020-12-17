@@ -1,0 +1,7 @@
+apiVersion: v1
+description: Helm chart for other application/service deploying
+name: terraform-aws-bastion
+version: 1.0
+keywords:
+    - other
+home: https://www.epam.com
