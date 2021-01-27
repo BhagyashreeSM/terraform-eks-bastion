@@ -5,19 +5,19 @@ resource "aws_instance" "bastion" {
   associate_public_ip_address = true
   key_name                    = var.ssh_key_pair_name
 
-  vpc_security_group_ids = var.security_group_ids]
+  vpc_security_group_ids = var.security_group_ids
 
   tags = merge(var.tags, map(
     "Name", "${var.platform_name}-bastion",
     "kubernetes.io/cluster/${var.platform_name}", var.platform_name
-  )
+    )
   )
 }
 
 resource "aws_eip" "bastion" {
   tags = merge(var.tags, map(
-   "Name", "${var.platform_name}-bastion",
-   "kubernetes.io/cluster/${var.platform_name}", var.platform_name
+    "Name", "${var.platform_name}-bastion",
+    "kubernetes.io/cluster/${var.platform_name}", var.platform_name
   ))
 }
 
