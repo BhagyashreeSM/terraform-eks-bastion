@@ -24,12 +24,6 @@ variable "security_group_ids" {
   description = "List of security groups for Bastion host"
 }
 
-variable "operator_cidrs" {
-  type        = list
-  description = "CIDRS that is allowed to connect to bastion"
-  default     = []
-}
-
 variable "ssh_key_pair_name" {
   description = "Key pair name in AWS to use for access to nodes"
 }

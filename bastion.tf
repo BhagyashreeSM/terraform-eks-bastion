@@ -5,7 +5,7 @@ resource "aws_instance" "bastion" {
   associate_public_ip_address = true
   key_name                    = var.ssh_key_pair_name
 
-  vpc_security_group_ids = [coalescelist(var.security_group_ids, aws_security_group.bastion.*.id)]
+  vpc_security_group_ids = var.security_group_ids]
 
   tags = merge(var.tags, map(
     "Name", "${var.platform_name}-bastion",
@@ -26,29 +26,3 @@ resource "aws_eip_association" "eip_bastion" {
   allocation_id = aws_eip.bastion.id
 }
 
-resource "aws_security_group" "bastion" {
-  count       = length(var.security_group_ids) != 0 ? 0 : 1
-  name        = "${var.platform_name}-bastion"
-  description = "Bastion group for ${var.platform_name}"
-
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = [var.operator_cidrs]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  vpc_id = var.vpc_id
-
-  tags = merge(var.tags, map(
-    "Name", "${var.platform_name}-bastion",
-    "Role", "bastion-node")
-  )
-}
