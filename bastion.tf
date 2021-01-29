@@ -1,5 +1,5 @@
 resource "aws_instance" "bastion" {
-  ami                         = var.ami_id
+  ami                         = data.aws_ami_ids.amazon_linux.ids[0]
   instance_type               = var.instance_type
   subnet_id                   = var.public_subnet_id
   associate_public_ip_address = true
@@ -24,5 +24,13 @@ resource "aws_eip" "bastion" {
 resource "aws_eip_association" "eip_bastion" {
   instance_id   = aws_instance.bastion.id
   allocation_id = aws_eip.bastion.id
+}
+
+data "aws_ami_ids" "amazon_linux"{
+  owners = ["137112412989"]
+  filter {
+    name = "name"
+    values = ["amzn2-ami-hvm-2.0.20201218.1-x86_64-gp2"]
+  }
 }
 
